@@ -14,11 +14,14 @@ api.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
     const payload = error.response?.data?.error;
+    // A reply without our { error } envelope didn't come from the API: e.g. the dev proxy
+    // when the server isn't running, or another app (like macOS AirPlay) on the same port.
+    const notFromApi = !error.response || typeof payload !== 'object';
     const message =
       payload?.message ||
       (error.code === 'ECONNABORTED' ? 'The request timed out' : null) ||
-      (!error.response
-        ? 'Cannot reach the server. Check your connection.'
+      (notFromApi
+        ? 'Cannot reach the API server. Make sure `npm run dev` is running and check the terminal for errors.'
         : 'Something went wrong');
 
     // A 401 outside the auth endpoints means the session expired.

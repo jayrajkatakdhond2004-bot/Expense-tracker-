@@ -138,7 +138,7 @@ npm run dev
 ```
 
 - Frontend: http://localhost:5173
-- API: http://localhost:5000 (the Vite dev server proxies `/api`, so the browser sees one origin)
+- API: http://localhost:5050 (the Vite dev server proxies `/api`, so the browser sees one origin)
 
 ### Run everything with Docker
 
@@ -204,11 +204,11 @@ a consistent envelope:
 Example:
 
 ```bash
-curl -c cookies.txt -X POST localhost:5000/api/v1/auth/login \
+curl -c cookies.txt -X POST localhost:5050/api/v1/auth/login \
   -H 'Content-Type: application/json' \
   -d '{"email":"demo@expense.app","password":"Demo@1234"}'
 
-curl -b cookies.txt 'localhost:5000/api/v1/expenses?q=uber&minAmount=100&limit=5'
+curl -b cookies.txt 'localhost:5050/api/v1/expenses?q=uber&minAmount=100&limit=5'
 ```
 
 A `Authorization: Bearer <token>` header is accepted as well as the cookie, which is convenient for
@@ -300,7 +300,7 @@ Set these in `server/.env`; see `server/.env.example`.
 | Variable              | Default                 | Description                                     |
 | --------------------- | ----------------------- | ----------------------------------------------- |
 | `NODE_ENV`            | `development`           | `development` / `production` / `test`           |
-| `PORT`                | `5000`                  | API port                                        |
+| `PORT`                | `5050`                  | API port                                        |
 | `MONGO_URI`           | required                | MongoDB connection string                       |
 | `JWT_SECRET`          | required (≥ 16 chars)   | Secret used to sign tokens                      |
 | `JWT_EXPIRES_IN`      | `7d`                    | Token lifetime                                  |
